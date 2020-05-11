@@ -10,107 +10,108 @@ using Ticket_System_2020.Models;
 
 namespace Ticket_System_2020.Controllers
 {
-    public class DepartmentsController : Controller
+    public class TicketsController : Controller
     {
-        private DepartmentDBEntities db = new DepartmentDBEntities();
+        private Entities db = new Entities();
 
-        // GET: Departments
+        // GET: Tickets
         public ActionResult Index()
         {
-            return View(db.Departments.ToList());
+            return View(db.Tickets.ToList());
         }
 
-        // GET: Departments/Details/5
+        // GET: Tickets/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = db.Departments.Find(id);
-            if (department == null)
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(ticket);
         }
 
-        // GET: Departments/Create
+        // GET: Tickets/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Departments/Create
+        // POST: Tickets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartmentID,DepartmentName")] Department department)
+        public ActionResult Create([Bind(Include = "TicketID,ProjetName,DepartmentName,RequestName,ProblemDescription,TimeRequested")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
-                db.Departments.Add(department);
+                ticket.TimeRequested = DateTime.Now;
+                db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(department);
+            return View(ticket);
         }
 
-        // GET: Departments/Edit/5
+        // GET: Tickets/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = db.Departments.Find(id);
-            if (department == null)
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(ticket);
         }
 
-        // POST: Departments/Edit/5
+        // POST: Tickets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DepartmentID,DepartmentName")] Department department)
+        public ActionResult Edit([Bind(Include = "TicketID,ProjetName,DepartmentName,RequestName,ProblemDescription,TimeRequested")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(department).State = EntityState.Modified;
+                db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(department);
+            return View(ticket);
         }
 
-        // GET: Departments/Delete/5
+        // GET: Tickets/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = db.Departments.Find(id);
-            if (department == null)
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(ticket);
         }
 
-        // POST: Departments/Delete/5
+        // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Department department = db.Departments.Find(id);
-            db.Departments.Remove(department);
+            Ticket ticket = db.Tickets.Find(id);
+            db.Tickets.Remove(ticket);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

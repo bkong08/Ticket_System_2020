@@ -13,10 +13,10 @@ namespace Ticket_System_2020.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DepartmentDBEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public DepartmentDBEntities()
-            : base("name=DepartmentDBEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -26,5 +26,7 @@ namespace Ticket_System_2020.Models
         }
     
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
     }
 }
