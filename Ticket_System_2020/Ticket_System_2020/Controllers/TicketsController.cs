@@ -15,9 +15,29 @@ namespace Ticket_System_2020.Controllers
         private Entities db = new Entities();
 
         // GET: Tickets
-        public ActionResult Index()
+        public ActionResult Index(string option, string search)
         {
-            return View(db.Tickets.ToList());
+            
+            if (option == "ProjectName")
+            {
+                return View(db.Tickets.Where(x=> x.ProjetName == search || search == null).ToList());
+            }
+            else if (option == "Department")
+            {
+                return View(db.Tickets.Where(x=> x.DepartmentName == search || search == null).ToList());
+            }
+            else if (option == "RequestReceived")
+            {
+                return View(db.Tickets.Where(x => x.TimeRequested.ToString() == search || search == null).ToList());
+            }
+            else if (option == "EmployeeName")
+            {
+                return View(db.Tickets.Where(x => x.RequestName == search || search == null).ToList());
+            }
+            else
+            {
+                return View(db.Tickets.Where(x=> x.ProblemDescription.StartsWith(search) || search == null).ToList());
+            }
         }
 
         // GET: Tickets/Details/5
@@ -50,6 +70,13 @@ namespace Ticket_System_2020.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<Department> lstDepartment = db.Departments.ToList();
+                lstDepartment.Insert(0, new Department { DepartmentID = 0, DepartmentName = "--Select Category--" });
+
+                List<Employee> lstEmployee = new List<Employee>();
+                ViewBag.DepartmentId = new SelectList(lstDepartment, "Id", "Name");
+                ViewBag.EmployeeId = new SelectList(lstEmployee, "Id", "Name");
+
                 ticket.TimeRequested = DateTime.Now;
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
@@ -123,6 +150,28 @@ namespace Ticket_System_2020.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult GetEmployeeByDepartmentId(int id)
+        {
+            List<Employee> employees = new List<Employee>();
+            if (id > 0)
+            {
+                employees = db.Employees.Where(p => p.DepartmentID == id).ToList();
+
+            }
+            else
+            {
+           
+            }
+            var result = (from r in employees
+                          select new
+                          {
+                              id = r.EmployeeID,
+                              name = r.FirstName
+                          }).ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
