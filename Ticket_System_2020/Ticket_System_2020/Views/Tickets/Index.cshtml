@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Ticket_System_2020.Models.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ticket List</h2>
+
+@using (Html.BeginForm("Index", "Tickets", FormMethod.Get))
+{
+    //the following are search options
+    <b> Search Option: </b> @Html.RadioButton("option", "ProjectName") <text>Project Name</text> @Html.RadioButton("option", "Department") <text>Department</text> @Html.RadioButton("option", "RequestReceived") <text>Request Received</text>@Html.RadioButton("option", "EmployeeName") <text>Request Name</text>@Html.RadioButton("option", "ProblemDescription") <text>Problem Description</text>
+    @Html.TextBox("search") <input type = "submit" name = "submit" value = "Search" />
+}
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeRequested)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProblemDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeRequested)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TicketID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TicketID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TicketID })
+                </td>
+            </tr>
+        }
+
+    </table>
