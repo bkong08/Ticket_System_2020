@@ -12,84 +12,79 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Ticket</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjetName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjetName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProjetName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RequestName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RequestName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RequestName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProblemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProblemDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProblemDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>Ticket</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label for="projectName" class="control-label col-md-2">Project Name</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ProjetName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjetName, "The Project Name field is required.", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        <label for="department" class="control-label col-md-2">Department</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DepartmentName, "The Department field is required.", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="requestName" class="control-label col-md-2">Submitted By</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RequestName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RequestName, "The Submitted by field is required.", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="problemDescription" class="control-label col-md-2">Problem Description</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ProblemDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProblemDescription, "The Problem Description field is required.", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
 }
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
 <script type="text/javascript">
-    $(function () {
-        if ($("#DepartmentId").val() == '0') {
-            var productDefaultValue = "<option value='0'>--Select a category first--</option>";
-            $("#EmployeeId").html(productDefaultValue).show();
-        }
 
-        $("#DepartmentId").change(function () {
-            var selectedItemValue = $(this).val();
-
-            var ddlEmployees = $("#EmployeeId");
+    $(document).ready(function () {
+        $('#ddlDepartment').change(function () {
             $.ajax({
-                cache: false,
-                type: "GET",
-                url: '@Url.Action("GetEmployeeByDepartmentId", "Tickets")',
-                data: { "id": selectedItemValue },
+                type: "post",
+                url: "/DropDownList/GetEmployee",
+                data: { departmentId: $('#ddlDepartment').val() },
+                datatype: "json",
+                traditional: true,
                 success: function (data) {
-                    ddlProducts.html('');
-                    $.each(data, function (id, option) {
-                        ddlProducts.append($('<option></option>').val(option.id).html(option.name));
-                    });
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert('Found error to load product!!.');
+                    var employee = "<select id='ddlEmployee'>";
+                    employee = employee + '<option value="">--Select--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        employee = employee + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    }
+                    employee = employee + '</select>';
+                    $('#Employee').html(employee);
                 }
             });
         });
     });
 </script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -21,11 +21,11 @@
       <PropertyRef Name="TicketID" />
     </Key>
     <Property Name="TicketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProjetName" Type="nvarchar" MaxLength="255" />
-    <Property Name="DepartmentName" Type="nvarchar" MaxLength="255" />
-    <Property Name="RequestName" Type="nvarchar" MaxLength="255" />
-    <Property Name="ProblemDescription" Type="nvarchar" MaxLength="255" />
-    <Property Name="TimeRequested" Type="datetime" />
+    <Property Name="ProjetName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="RequestName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ProblemDescription" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TimeRequested" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="FK__Employee__Depart__5165187F">
     <End Role="Department" Type="Self.Department" Multiplicity="1" />

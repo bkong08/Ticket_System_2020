@@ -153,5 +153,5 @@ C:\Users\Beaurin Kong\Documents\GitHub\Ticket_System_2020\Ticket_System_2020\Tic
 C:\Users\Beaurin Kong\Documents\GitHub\Ticket_System_2020\Ticket_System_2020\Ticket_System_2020\bin\roslyn\vbc.rsp
 C:\Users\Beaurin Kong\Documents\GitHub\Ticket_System_2020\Ticket_System_2020\Ticket_System_2020\bin\roslyn\VBCSCompiler.exe
 C:\Users\Beaurin Kong\Documents\GitHub\Ticket_System_2020\Ticket_System_2020\Ticket_System_2020\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Beaurin Kong\Documents\GitHub\Ticket_System_2020\Ticket_System_2020\Ticket_System_2020\obj\Debug\Ticket_System_2020.csprojAssemblyReference.cache
 C:\Users\Beaurin Kong\Documents\GitHub\Ticket_System_2020\Ticket_System_2020\Ticket_System_2020\bin\Json.Net.dll
+C:\Users\Beaurin Kong\Documents\GitHub\Ticket_System_2020\Ticket_System_2020\Ticket_System_2020\obj\Debug\Ticket_System_2020.csprojAssemblyReference.cache

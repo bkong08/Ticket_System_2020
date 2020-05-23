@@ -5,34 +5,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ticket List</h2>
+<h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 @using (Html.BeginForm("Index", "Tickets", FormMethod.Get))
 {
-    //the following are search options
-    <b> Search Option: </b> @Html.RadioButton("option", "ProjectName") <text>Project Name</text> @Html.RadioButton("option", "Department") <text>Department</text> @Html.RadioButton("option", "RequestReceived") <text>Request Received</text>@Html.RadioButton("option", "EmployeeName") <text>Request Name</text>@Html.RadioButton("option", "ProblemDescription") <text>Problem Description</text>
-    @Html.TextBox("search") <input type = "submit" name = "submit" value = "Search" />
+    <b> Search Option: </b>@Html.RadioButton("option", "projectName") <text> Project Name </text> @Html.RadioButton("option", "department") <text> Department </text>
+    @Html.RadioButton("option", "submittedBy")<text> Submitted By </text> @Html.RadioButton("option", "problemDescription")<text> Problem Description </text> @Html.RadioButton("option", "timeRequested")<text> Time Requested </text> @Html.TextBox("search")
+    <input type="submit" name="submit" value="Search" />
 }
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+<p>
+</p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProjetName)
+                Project Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DepartmentName)
+                Department
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RequestName)
+                Submitted By
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProblemDescription)
+                Problem Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeRequested)
+                Time Requested
             </th>
             <th></th>
         </tr>

@@ -12,31 +12,34 @@ namespace Ticket_System_2020.Controllers
 {
     public class TicketsController : Controller
     {
-        private Entities db = new Entities();
+        private Entities1 db = new Entities1();
+
+        public object EmployeeNames { get; private set; }
 
         // GET: Tickets
         public ActionResult Index(string option, string search)
         {
-            
-            if (option == "ProjectName")
+
+            if (option == "projectName")
             {
-                return View(db.Tickets.Where(x=> x.ProjetName == search || search == null).ToList());
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(db.Tickets.Where(x => x.ProjetName.StartsWith(search) || search == null).ToList());
             }
-            else if (option == "Department")
+            else if (option == "department")
             {
-                return View(db.Tickets.Where(x=> x.DepartmentName == search || search == null).ToList());
+                return View(db.Tickets.Where(x => x.DepartmentName.StartsWith(search) || search == null).ToList());
             }
-            else if (option == "RequestReceived")
+            else if (option == "submittedBy")
             {
-                return View(db.Tickets.Where(x => x.TimeRequested.ToString() == search || search == null).ToList());
+                return View(db.Tickets.Where(x => x.RequestName.StartsWith(search) || search == null).ToList());
             }
-            else if (option == "EmployeeName")
+            else if (option == "problemDescription")
             {
-                return View(db.Tickets.Where(x => x.RequestName == search || search == null).ToList());
+                return View(db.Tickets.Where(x => x.ProblemDescription.StartsWith(search) || search == null).ToList());
             }
             else
             {
-                return View(db.Tickets.Where(x=> x.ProblemDescription.StartsWith(search) || search == null).ToList());
+                return View(db.Tickets.Where(x => x.TimeRequested.ToString().StartsWith(search) || search == null).ToList());
             }
         }
 
@@ -70,13 +73,6 @@ namespace Ticket_System_2020.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Department> lstDepartment = db.Departments.ToList();
-                lstDepartment.Insert(0, new Department { DepartmentID = 0, DepartmentName = "--Select Category--" });
-
-                List<Employee> lstEmployee = new List<Employee>();
-                ViewBag.DepartmentId = new SelectList(lstDepartment, "Id", "Name");
-                ViewBag.EmployeeId = new SelectList(lstEmployee, "Id", "Name");
-
                 ticket.TimeRequested = DateTime.Now;
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
@@ -150,28 +146,6 @@ namespace Ticket_System_2020.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public JsonResult GetEmployeeByDepartmentId(int id)
-        {
-            List<Employee> employees = new List<Employee>();
-            if (id > 0)
-            {
-                employees = db.Employees.Where(p => p.DepartmentID == id).ToList();
-
-            }
-            else
-            {
-           
-            }
-            var result = (from r in employees
-                          select new
-                          {
-                              id = r.EmployeeID,
-                              name = r.FirstName
-                          }).ToList();
-
-            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

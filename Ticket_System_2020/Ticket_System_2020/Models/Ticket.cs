@@ -11,14 +11,21 @@ namespace Ticket_System_2020.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class Ticket
     {
+        [Required]
         public int TicketID { get; set; }
+        [Required]
         public string ProjetName { get; set; }
+        [Required]
         public string DepartmentName { get; set; }
+        [Required]
         public string RequestName { get; set; }
+        [Required]
         public string ProblemDescription { get; set; }
-        public Nullable<System.DateTime> TimeRequested { get; set; }
+        public System.DateTime TimeRequested { get; set; }
     }
 }

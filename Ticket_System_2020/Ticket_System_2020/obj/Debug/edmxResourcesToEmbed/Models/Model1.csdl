@@ -23,11 +23,11 @@
       <PropertyRef Name="TicketID" />
     </Key>
     <Property Name="TicketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProjetName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
-    <Property Name="DepartmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
-    <Property Name="RequestName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
-    <Property Name="ProblemDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
-    <Property Name="TimeRequested" Type="DateTime" Precision="3" Nullable="true" />
+    <Property Name="ProjetName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DepartmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RequestName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProblemDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TimeRequested" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <Association Name="FK__Employee__Depart__5165187F">
     <End Role="Department" Type="Self.Department" Multiplicity="1" />
@@ -41,7 +41,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Departments" EntityType="Self.Department" />
     <EntitySet Name="Employees" EntityType="Self.Employee" />
     <EntitySet Name="Tickets" EntityType="Self.Ticket" />
